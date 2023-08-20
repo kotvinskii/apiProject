@@ -1,0 +1,33 @@
+from utils.api_create_new_place import Google_maps_api
+from requests import Response
+
+from utils.checking_content import Checkings
+
+
+class Test_for_google_maps():
+    def test_create_new_place(self):
+        print("POST")
+        post_test: Response = Google_maps_api.create_new_place()
+        check_post = post_test.json()
+        place_id = check_post.json("place_id")
+        Checkings.checking_status_code(post_test, 200)
+        Checkings.checking_fields(post_test, ['status', 'id'] )
+        Checkings.checking_content_fields(post_test, 'status', 'OK')
+        print("GET")
+        request_get: Response = Google_maps_api.get_info_new_place(place_id)
+        Checkings.checking_status_code(request_get, 200)
+        Checkings.checking_fields(request_get, ['status', 'id'])
+        Checkings.checking_content_fields(request_get, 'address', '100 Lenina RU')
+        print("PUT")
+        request_put: Response = Google_maps_api.put_info_new_place(place_id)
+        Checkings.checking_status_code(request_put, 200)
+        Checkings.checking_fields(request_put, ['status', 'id'])
+        Checkings.checking_content_fields(request_put, 'scope', 'APP')
+        print("GET")  # тест к изменению публикации
+        request_get: Response = Google_maps_api.get_info_new_place(place_id)
+        Checkings.checking_status_code(request_get, 200)
+        Checkings.checking_fields(request_get, ['status', 'id'])
+        print("DELETE")
+        request_delete: Response = Google_maps_api.delete_info_new_place(place_id)
+        Checkings.checking_status_code(request_delete, 200)
+        Checkings.checking_fields(request_delete, ['msg'])
