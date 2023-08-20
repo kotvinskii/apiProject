@@ -1,3 +1,4 @@
+# Создаю методы post, get, put, delete, для нашего api
 from utils.http_metods import Http_metods
 
 base_url = "https://rahulshettyacademy.com"  # url для всех запросов
