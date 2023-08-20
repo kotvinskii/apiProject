@@ -1,3 +1,4 @@
+# Тестирую api
 from utils.api_create_new_place import Google_maps_api
 from requests import Response
 
