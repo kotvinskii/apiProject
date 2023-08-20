@@ -1,0 +1,69 @@
+from utils.http_metods import Http_metods
+
+base_url = "https://rahulshettyacademy.com"  # url для всех запросов
+key = "?key=qaclick123"  # параметр для всех запросов
+
+
+class Google_maps_api():
+    @staticmethod
+    def create_new_place():
+        """Создание нового места"""
+        json_body_post = {
+            "location": {
+                "lat": -38.383494,
+                "lng": 33.427362
+            }, "accuracy": 50,
+            "name": "Frontline house",
+            "phone_number": "(+91) 983 893 3937",
+            "address": "29, side layout, cohen 09",
+            "types": [
+                "shoe park",
+                "shop"
+            ],
+            "website": "http://google.com",
+            "language": "French-IN"
+
+        }
+        post_resource = "/maps/api/place/add/json"
+        post_url = base_url + post_resource + key
+        print(post_url)
+        request_post = Http_metods.post(base_url, json_body_post)
+        print(request_post.text)
+
+    @staticmethod
+    def get_info_new_place(place_id):
+        """Проверка создания нового места"""
+        get_resource = "/maps/api/place/get/json"
+        get_url = base_url + get_resource + key + "&place_id" + place_id
+        print(get_url)
+        request_get = Http_metods.get(get_url)
+        print(request_get.text)
+        return request_get
+
+    @staticmethod
+    def put_info_new_place(place_id):
+        """Изменение информации о новом месте"""
+        put_resource = "/maps/api/place/update/json"
+        put_url = base_url + put_resource + key
+        update_info_body = {
+            "place_id": place_id,
+            "address": "100 Lenina street, RU",
+            "key": "qaclick123"
+        }
+        print(put_url)
+        request_put = Http_metods.put(put_url, update_info_body)
+        print(request_put.text)
+        return request_put
+
+    @staticmethod
+    def delete_info_new_place(place_id):
+        """Удаление созданного места"""
+        del_resource = "/maps/api/place/delete/json"
+        del_url = base_url + del_resource + key
+        del_body = {
+            "place_id": place_id
+        }
+        print(del_url)
+        request_del = Http_metods.delete(base_url, del_body)
+        print(request_del.text)
+        return request_del
