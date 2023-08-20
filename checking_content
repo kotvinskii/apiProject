@@ -1,0 +1,27 @@
+# Проверка на наличие определенных полей, статус кода, содержимого полей
+import json
+
+from requests import Response
+
+
+class Checkings():
+    @staticmethod
+    def checking_status_code(response: Response, status_code): # проверка на соответствие кода
+        if response.status_code == status_code:
+            print("Успешно! Полученный код равен" + str(response.status_code))
+        else:
+            print("Провал! Полученный код равен" + str(response.status_code))
+
+    @staticmethod
+    def checking_fields(response: Response, expected_value):  # проверка на наличие полей в запросе API
+        fields = json.loads(response.text)
+        assert list(fields) == expected_value
+        print("Все поля присутствуют")
+    @staticmethod
+    def checking_content_fields(response: Response, field_name, expected_value): # проверка на соответствие содержимого полей
+        content = json.loads(response.text)
+        assert expected_value == field_name
+        if field_name in content:
+            print(str(field_name) + " входит в значение полей")
+        else:
+            print(str(field_name) + " не входит в значение полей")
