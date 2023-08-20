@@ -1,0 +1,27 @@
+import requests
+
+
+class Http_metods:
+    """Методы Http"""
+    headers = {'Content-Type': 'application/json'}
+    cookie = ""
+
+    @staticmethod
+    def get(url):
+        result_request = requests.get(url, headers=Http_metods.headers, cookies=Http_metods.cookie)
+        return result_request
+
+    @staticmethod
+    def post(url, body):
+        result_request = requests.post(url, json=body, headers=Http_metods.headers, cookies=Http_metods.cookie)
+        return result_request
+
+    @staticmethod
+    def put(url, body):
+        result_request = requests.put(url, json=body, headers=Http_metods.headers, cookies=Http_metods.cookie)
+        return result_request
+
+    @staticmethod
+    def delete(url, body):
+        result_request = requests.delete(url, json=body, headers=Http_metods.headers, cookies=Http_metods.cookie)
+        return result_request
